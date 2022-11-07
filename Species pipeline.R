@@ -1,5 +1,7 @@
+spp.root.folder = "/Users/giorgetti/Desktop/Species_project"
 {
-spp.code.folder = "/Users/giorgetti/Desktop/Species_project/Pipeline/"
+spp.code.folder = file.path(spp.root.folder,"Pipeline/")
+  
 spp.data.folder = "/Users/giorgetti/Desktop/Species_project/Databases/"
 spp.maps.folder = "/Users/giorgetti/Desktop/Species_project/Genome maps/"
 spp.tables.folder = "/Users/giorgetti/Desktop/Species_project/Tables/"
@@ -7,7 +9,7 @@ spp.fig.folder = "/Users/giorgetti/Desktop/Species_project/Figures/"
 
 spp.short.names = c("C. punctatum","P. senegalus","A. ruthenus Ca 1","A. ruthenus Ca 2","P. progenetica","D. rerio","O. mykiss","O. latipes","P. annectens","M. musculus","L. africana")
 
-  # Runs in around 10 minuts
+  # Runs in around 10 minutes
   inicio = Sys.time()
   source(paste0(spp.code.folder,"Data extraction functions.R"))
   source(paste0(spp.code.folder,"Sequence manipulation functions.R"))
