@@ -1,10 +1,11 @@
 sel.spp =c("Danio rerio","Mus musculus", "Protopterus annectens","Acipenser ruthenus","Chiloscyllium punctatum","Gallus gallus",'Oncorhynchus mykiss',"Polypterus senegalus","Oryzias latipes")
 spp.df.2 = spp.df[!is.na(spp.df$J_frame),]
-spp.df.2$orden =  order(order(as.numeric(spp.df.2$J_frame),decreasing = T))
 spp.df.2 = spp.df.2[!duplicated(spp.df.2$spp),]
-pdf(paste0(spp.fig.folder,"Fig5_A.pdf"),width = 14,height = 7)  
 
-ggplot(spp.df.2) + 
+spp.df.2$orden =  order(order(as.numeric(spp.df.2$J_frame),decreasing = T))
+
+
+Fig4.a = ggplot(spp.df.2) + 
   scale_y_continuous(name="J RSS frame conservation",limits = c(0,1.07),breaks = seq(0,1,by = 0.25)) + 
   scale_x_continuous(name="",limits = c(0,312)) + 
   geom_point(mapping = aes(x = orden,y=J_frame,color = group), size = 1) +
@@ -19,7 +20,7 @@ ggplot(spp.df.2) +
   theme(legend.position = "none",
         axis.title = element_text(size = 20),
         axis.text = element_text(size= 15))
-dev.off()  
+ggsave(paste0(spp.fig.folder,"Fig4.a.pdf"),Fig4.a,width = 16,height = 8,bg = "white")
 
 spp.df.fig4 = spp.df
 
@@ -36,7 +37,7 @@ levels(spp.df$group)[levels(spp.df$group) == "Transition"] = "Lobe-finned fishes
   sp.n.labels[duplicated(J.n.labels)] = ""
   
   
-  p.box.f5 = ggplot(spp.df.fig4[!is.na(spp.df.fig4$J_frame),]) + geom_boxplot(mapping = aes(x = group, y = J_frame,fill = group)) +
+  p.box.f4b = ggplot(spp.df.fig4[!is.na(spp.df.fig4$J_frame),]) + geom_boxplot(mapping = aes(x = group, y = J_frame,fill = group)) +
     geom_rect(mapping = aes(xmin = 0, xmax=9, ymin= 1,ymax = 1.25),fill = "white") +
     geom_text(mapping = aes(x = group, y  = 1.20,label = J.n.labels),size = 5) +
     geom_text(mapping = aes(x = group, y  = 1.05,label = sp.n.labels)) +
@@ -56,7 +57,7 @@ levels(spp.df$group)[levels(spp.df$group) == "Transition"] = "Lobe-finned fishes
           legend.title = element_blank())
   
 
-  ggsave(paste0(spp.fig.folder,"Fig5_B.pdf"),p.box.f5,width = 16,height = 8,bg = "white")
+  ggsave(paste0(spp.fig.folder,"Fig4.b.pdf"),p.box.f4b,width = 16,height = 8,bg = "white")
 }
 
 
@@ -67,7 +68,7 @@ levels(spp.df$group)[levels(spp.df$group) == "Transition"] = "Lobe-finned fishes
   selected.Js.by.group.cM = lapply(selected.Js.by.group,function(x)consensusMatrix(unlist(lapply(x,function(y)y$ss.RSS)))[c("A","C","G","T"),])
   
   
-  pdf(paste0(spp.fig.folder,"Fig5_B_consensus.pdf"),width = 20,height = 2)  
+  pdf(paste0(spp.fig.folder,"Fig4_B_consensus.pdf"),width = 20,height = 2)  
   
   grid.arrange(grobs = lapply(1:8,function(i)ggseqlogo(selected.Js.by.group.cM[[i]][,29:33],col_scheme = cs.spp[[i]]) +
                                 scale_y_continuous(limits = c(0,2)) +
