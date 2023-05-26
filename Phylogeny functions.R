@@ -1,6 +1,3 @@
-library(rotl)
-library(taxize)
-library(ape)
 
 spp.classification.filter = function(taxonomy)sapply(spp.classification,function(x)if(!is.null(x))sum(grepl(taxonomy,x$name))>0 else F) 
 
