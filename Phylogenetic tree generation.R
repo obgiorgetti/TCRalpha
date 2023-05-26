@@ -1,6 +1,5 @@
-#spp.maps.folder = "/home/giorgetti/Species Project/Species paper/Genome maps/"
+# Load text files from NCBI
 
-# Load text files
 {
   eukaryotes = read.delim(paste0(spp.maps.folder,"eukaryotes.txt"))
   eukaryotes[order(as.numeric(eukaryotes$Size..Mb.),decreasing = T),][1:10,]
@@ -14,13 +13,6 @@
   overview.animals = overview[!is.na(overview$Chrs) & overview$Group == "Animals" & !(overview$SubGroup %in% c("Other Animals","Flatworms","Insects","Roundworms")),]
   names(overview.animals)[1] = 'Organism_name'
 }
-
-
-
-
-# Load files
-Alpha.files = list.files(path= paste0(spp.maps.folder,"Genome data/") ,pattern="alpha",recursive = TRUE)
-Alpha.files.ss = gsub("_"," ",gsub(".[0-9]|.*/|.alpha.*|_H[DNS].*","",Alpha.files)) # file names to match with Calphas
 
 
 taxa <- tnrs_match_names(names = unique(as.character(sapply(spp.classification,function(x)x[x$rank=='species',1]))))
@@ -40,5 +32,3 @@ pruned_tree = drop.tip(tree.v2, tree.v2$tip.label[tree.v2$tip.label %in% spp.df$
 pruned.tree.tip.translate = sub(" \\(.*","",gsub("_"," ",sub("_ott[0-9].*","",pruned_tree$tip.label)))
 col.pt = rep("black",nrow(pruned_tree$edge))
 for (i in 1:length(levels(spp.df$group)))col.pt[which.edge(pruned_tree,sort(match(spp.df$spp[spp.df$group == levels(spp.df$group)[i]],pruned.tree.tip.translate)))] = spp.col.xt[[i]]
-
-# La combinacion ganadora!
