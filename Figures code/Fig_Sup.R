@@ -1,12 +1,12 @@
-### Fig S1 ###
+### Extended data Figure 1 ###
 
 {
-  pdf(paste0(spp.fig.folder,"Fig_S1_V_germline_position.pdf"),width = 10,height = 5)
-  grid.arrange(grobs = lapply(1:2,function(i)ggplot(data=df.ZF.RSS.list[[i]], aes(x=RSS, y=Freq,fill = factor(RSS))) +
+  pdf(paste0(spp.fig.folder,"xtDFig_1_b.c.pdf"),width = 10,height = 5)
+  grid.arrange(grobs = lapply(2:1,function(i)ggplot(data=df.ZF.RSS.list[[i]], aes(x=RSS, y=Freq,fill = factor(RSS))) +
                                 geom_bar(stat="identity", width=1,colour = "black",alpha = 2.3-i) +
                                 scale_fill_manual(values=(c("black","black","black",J2.col,rep("black",4),J3.col,"black"))) +
-                                scale_x_discrete(name="nucleotide position of V RSS") + 
-                                scale_y_continuous(name=c("Fraction of usage in the repertoire","Number of germline V elements")[i]) +
+                                scale_x_discrete(name="Nucleotide position of V RSS") + 
+                                scale_y_continuous(name=c("Fraction of usage in the repertoire","Number of V genes")[i]) +
                                 theme_minimal() +
                                 theme(legend.position = "none", 
                                       panel.border = element_rect(colour = "black", fill=NA, size=1),
@@ -44,47 +44,48 @@
             axis.title.y = element_blank(),
             axis.text.y=element_blank(),
             panel.border = element_rect(color = "black",fill = NA,size = 0.3))
-    pdf(paste0(spp.fig.folder,"Fig_S1_V.15.RSS.pdf"),width = 21/3,height = 7/3)
+    pdf(paste0(spp.fig.folder,"xtDFig_1_a.15.RSS.pdf"),width = 21/3,height = 7/3)
     grid.arrange(grobs = list(p.V.RSS.1,p.V.RSS.2),ncol = 1)
     dev.off()
     
-    pdf(paste0(spp.fig.folder,"Fig_S1_V.20.RSS.pdf"),width = 26/3,height = 7/3)
+    pdf(paste0(spp.fig.folder,"xtDFig_1_a.20.RSS.pdf"),width = 26/3,height = 7/3)
     grid.arrange(grobs = list(p.V.20.RSS.1,p.V.20.RSS.2),ncol = 1)
     dev.off()
   }
 }
 
-### Fig S2 ###
+### Extended data Figure 2 ###
+
 sp ="ZF"
 gene = "a"
-pdf(file =paste0(spp.fig.folder,"Fig_S2_consensus.pdf"),width = 8,height = 3)
+pdf(file =paste0(spp.fig.folder,"xtDFig_2_a.pdf"),width = 8,height = 3)
 ggseqlogo(get.J.RSS.matrix("ZF","a"))
 dev.off()
-pdf(file =paste0(spp.fig.folder,"Fig_S2_score.pdf"),width = 12,height = 6)
-plot(RSS.si.ZF.a$score.RSS[,25])
-dev.off()
-pdf(file =paste0(spp.fig.folder,"Fig_S2_sequence.pdf"),width = 80,height = 3)
+RSS.si.ZF.a = RSS.scorer.iterative(get.J.RSS.matrix("ZF","a"),getSeq(spp.genome.data.list[[sp]][[gene]],shift(resize(spp.TCR.dict[[sp]][[gene]]$J.GR.dict,width = 214+27,fix = "end"),14)),check.to = 200,iter.max = 5)
+pdf(file =paste0(spp.fig.folder,"xtDFig_2_b.pdf"),width = 80,height = 3)
 ggseqlogo(as.character(get.J.Seq("ZF","a")[25]))
 dev.off()
-RSS.si.ZF.a = RSS.scorer.iterative(get.J.RSS.matrix("ZF","a"),getSeq(spp.genome.data.list[[sp]][[gene]],shift(resize(spp.TCR.dict[[sp]][[gene]]$J.GR.dict,width = 214+27,fix = "end"),14)),check.to = 200,iter.max = 5)
-pdf(file = paste0(spp.fig.folder,"Fig_S2_score_matrix.pdf"),width = 8,height = 8)
+pdf(file =paste0(spp.fig.folder,"xtDFig_2_c.pdf"),width = 12,height = 6)
+plot(RSS.si.ZF.a$score.RSS[,25])
+dev.off()
+pdf(file = paste0(spp.fig.folder,"xtDFig_2_d.pdf"),width = 8,height = 8)
 image(RSS.si.ZF.a$score.RSS[,order(RSS.si.ZF.a$RSS.index)])
 dev.off()
-pdf(file = paste0(spp.fig.folder,"Fig_S2_score_matrix.ref.pdf"),width = 8,height = 3)
+pdf(file = paste0(spp.fig.folder,"xtDFig_2_d.ref.pdf"),width = 8,height = 3)
 image(matrix(min(RSS.si.ZF.a$score.RSS):max(RSS.si.ZF.a$score.RSS)))
 dev.off()
 
-### Fig S3 ###
+### Extended data Figure 3 ###
 
 {  
   
   # Fig J RSS  
-  pdf(paste0(spp.fig.folder,"Fig_S3_J_germline_position.pdf"),width = 10,height = 5)
-  grid.arrange(grobs = lapply(3:4,function(i)ggplot(data=df.ZF.RSS.list[[i]], aes(x=RSS, y=Freq,fill = factor(RSS))) +
+  pdf(paste0(spp.fig.folder,"xtDFig_3_b.c.pdf"),width = 10,height = 5)
+  grid.arrange(grobs = lapply(4:3,function(i)ggplot(data=df.ZF.RSS.list[[i]], aes(x=RSS, y=Freq,fill = factor(RSS))) +
                                 scale_x_discrete(breaks = seq(-57,-69,by = -3)) +
                                 geom_bar(stat="identity", width=1,colour = "black",alpha = 4.3-i) +
                                 scale_fill_manual(values=(c(J1.col,"white","white",J2.col,"white","white",J3.col,"black","black",J4.col,"black","white",J5.col)))+
-                                labs (y =c("Fraction of usage in the repertoire","Number of germline V elements")[i-2] , x ="nucleotide position of V RSS") + 
+                                labs (y =c("Fraction of usage in the repertoire","Number of J genes")[i-2] , x ="Nucleotide position of J RSS") + 
                                 
                                 theme_minimal() +
                                 theme(legend.position = "none", 
@@ -95,7 +96,7 @@ dev.off()
   ),nrow = 1)
   dev.off()
   
-  lapply(seq(-57,-69,by = -3)[1],function(x)subseq(as.character(get.J.Seq("ZF","a",100)[spp.TCR.dict$ZF$a$J.GR.dict$heptamer.end==x]),28))
+  #lapply(seq(-57,-69,by = -3)[1],function(x)subseq(as.character(get.J.Seq("ZF","a",100)[spp.TCR.dict$ZF$a$J.GR.dict$heptamer.end==x]),28))
   
   cM.Js   = lapply(seq(-57,-69,by = -3),function(x)consensusMatrix(subseq(as.character(get.J.Seq("ZF","a",100)[spp.TCR.dict$ZF$a$J.GR.dict$heptamer.end==x]),45+57-7+x)))
   cM.Js.2 = cM.Js
@@ -124,11 +125,11 @@ dev.off()
     
     
     
-    pdf(paste0(spp.fig.folder,"Fig_S3_Js.RSS.pdf"),width = 18,height = 8)
+    pdf(paste0(spp.fig.folder,"xtDFig_3_a.pdf"),width = 18,height = 8)
     grid.arrange(grobs = p.J.RSS.1,ncol = 1)
     dev.off()
     
-    pdf(paste0(spp.fig.folder,"Fig_S3_Js.black.RSS.pdf"),width = 18,height = 8)
+    pdf(paste0(spp.fig.folder,"xtDFig_3_a.black.pdf"),width = 18,height = 8)
     grid.arrange(grobs = p.J.RSS.2,ncol = 1)
     dev.off()
     
@@ -136,13 +137,13 @@ dev.off()
   }
 }  
 
-### Fig S4 ###
+### Extended data Figure 4 ###
 
 {
-pdf(file =  paste0(spp.fig.folder,"Fig_S4_rank_pub.pdf"),width = 8,height = 8)
-with(TCR.a.spp.VJ$ZF[TCR.a.spp.VJ$ZF$Sample.bio.name==2,],plot(sort(Umi.proportion,decreasing = T),log = 'xy',type = 'l',xlab = NA,ylab = NA,las = 1))
+pdf(file =  paste0(spp.fig.folder,"xtDFig_4_a.pdf"),width = 8,height = 8)
+with(TCR.a.spp.VJ$ZF[TCR.a.spp.VJ$ZF$Sample.bio.name==2,],plot(sort(Umi.proportion,decreasing = T),log = 'xy',type = 'l',xlab = "Rank",ylab = "Fraction of the repertoire",las = 1))
 sapply(1:6,function(i)with(TCR.a.spp.VJ$ZF[TCR.a.spp.VJ$ZF$Sample.bio.name==i,],lines(sort(Umi.proportion,decreasing = T),col = i)))
-legend(10000,0.1,legend = 1:6,fill = 1:6)
+legend(10000,0.1,legend = 1:6,fill = 1:6, title = "Fish",box.lty=0)
 dev.off()
 
 {
@@ -151,12 +152,13 @@ dev.off()
   df.sel = df[,with(df,c("Umi.count","pub","Sample.bio.name"))]
   temp.agg = aggregate(cbind(Umi.count) ~ ., data = df.sel, FUN = sum, na.rm = TRUE)
   temp.agg$cs = unname(unlist(tapply(temp.agg$Umi.count,temp.agg$Sample.bio.name,cumsum)))
-  temp.agg$cs.2 = unlist(lapply(tapply(temp.agg$Umi.count,temp.agg$Sample.bio.name,cumsum),function(x)(c(0,x)[-7]+x)/2))
+  temp.agg$Sample.bio.name = paste("Fish",temp.agg$Sample.bio.name)
+  temp.agg$cs.2 = unlist(lapply(tapply(temp.agg$Umi.count,temp.agg$Sample.bio.name,cumsum),function(x)(c(0,x)[-7]+x)/2)) # this variable is just created to position the numbers in the picture
   p.pub.s4 = ggplot(temp.agg) + geom_col(mapping = aes(x = Sample.bio.name,y = Umi.count, fill = pub<2), colour = "black") +
     geom_text(mapping = aes(x = Sample.bio.name, y = cs.2 , label = rep(1:6,6)),size = 7) +
-    labs(y = "Umi molecules", x = "Specimen") +
+    labs(y = "cDNA molecules", x = "Specimen") + # In the paper y axis was scaled by 10^3 to ease reading
     theme_minimal()
-  ggsave(paste0(spp.fig.folder,"Fig_S4_pub.pdf"),p.pub.s4,width = 6,height = 9)
+  ggsave(paste0(spp.fig.folder,"xtDFig_4_b.pdf"),p.pub.s4,width = 6,height = 9)
   
   sp = "ZF"
   df= TCR.a.spp.VJ[[sp]]
@@ -166,16 +168,14 @@ dev.off()
   temp.agg$cs.2 = unlist(lapply(tapply(temp.agg$pc.nt,temp.agg$Sample.bio.name,cumsum),function(x)(c(0,x)[-7]+x)/2))
   p.pub.s4.2 = ggplot(temp.agg) + geom_col(mapping = aes(x = Sample.bio.name,y = pc.nt, fill = pub<2), colour = "black") +
     geom_text(mapping = aes(x = Sample.bio.name, y = cs.2 , label = rep(1:6,6)),size = 7) +
-    labs(y = "Clonotypes", x = "Specimen") +
+    labs(y = "Clonotypes", x = "Specimen") +  # In the paper y axis was scaled by 10^3 to ease reading
     theme_minimal()
-  ggsave(paste0(spp.fig.folder,"Fig_S4_pub.2.pdf"),p.pub.s4.2,width = 6,height = 9)
+  ggsave(paste0(spp.fig.folder,"xtDFig_4_c.pdf"),p.pub.s4.2,width = 6,height = 9)
 }
 }
 
-### Fig S5 ###
 
- # Use Fig 2B
-pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
+pdf(file =  paste0(spp.fig.folder,"xtDFig_4_e.pdf"),width = 8,height = 4)
 
   grid.arrange(grobs = lapply(1:4,function(i)ggseqlogo(with(TCR.a.spp.VJ$ZF,CDR3.nucleotide.sequence[rules==i & L==36+3*i-3*sum(grepl(i,c(3,4)))]),col_scheme = cs.black) +
                                 scale_y_continuous(limits = c(0,2)) +
@@ -186,12 +186,9 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
                                 )),ncol = 1)
   
 
-  
   dev.off()
   
-  
-  ### Fig S6 ###
-  
+
   {  
     {
       sp = "ZF"
@@ -200,15 +197,6 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
       temp.agg = aggregate(cbind(Umi.count) ~ ., data = df.sel, FUN = sum, na.rm = TRUE)
       temp.agg$RSS.J = factor(temp.agg$RSS.J,levels = c(seq(-57,-69,by = -3)))
     }
-    p.J.RSS.cat.sup = ggplot(data=temp.agg, aes(x=L, y=Umi.count/sum(Umi.count),fill = factor(RSS.J))) +
-      geom_bar(stat="identity", width=1,colour = "black") +
-      scale_fill_manual(values=(c(J1.col,J2.col,J3.col,J4.col,J5.col)))+
-      scale_x_continuous(name="CDR3 length (nucleotides)",breaks = seq(27,52, by = 3)) + 
-      
-      labs (y = "Fraction of the repertoire" , legend = "J RSS position") +
-      theme_minimal()  
-    ggsave(paste0(spp.fig.folder,"Fig_S6_J.RSS.cat.sup.pdf"),p.J.RSS.cat.sup,width = 6,height = 4,bg = "white")
-    
     p.J.RSS.cat.sep = lapply(1:5,function(x)ggplot(data=temp.agg[temp.agg$RSS.J %in%seq(-57,-69,by=-3)[x],], aes(x=factor(L,levels = 25:53), y=Umi.count/sum(Umi.count),fill = factor(RSS.J))) +
                                geom_bar(stat="identity", width=1,colour = "black") +
                                scale_x_discrete(name=element_blank(),breaks = seq(0, 50, by = 3),limits = factor(27:52)) + 
@@ -218,65 +206,54 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
                                labs (legend = element_blank()) +
                                theme_minimal() +
                                theme(panel.grid.minor = element_blank()))
-    pdf(paste0(spp.fig.folder,"Fig_S6_J.RSS.cat.sep.pdf"),width = 9,height = 8)
+    pdf(paste0(spp.fig.folder,"xtDFig_4_f.pdf"),width = 9,height = 8)
     grid.arrange(grobs = p.J.RSS.cat.sep,ncol = 1)
     dev.off()
-  }
-### Fig S7 ###
-    rules.prop = prop.table(table(with(TCR.a.spp.VJ[[sp]],rep(rules,Umi.count))))[2:5]
-    rules.VJ = lapply(1:4,function(rule)with(TCR.a.spp.VJ[[sp]][TCR.a.spp.VJ[[sp]]$rules==rule,],sapply(as.numeric(prop.table(table(rep(V.gene,Umi.count)))),function(x)sapply(as.numeric(prop.table(table(rep(J.gene,Umi.count)))),function(y)x*y))))
-    rules.VJ.prop = unlist(mapply('*',rules.VJ,rules.prop))
     
-    {
-      pdf(file = paste0(spp.fig.folder,"Fig_S7_rules.prob.pdf"),width = 5,height = 5)
-      plot(pgeom(300000,sort(rules.VJ.prop,decreasing = T)),type = 'l',ylab = "Probability of generation",xlab = "Rank",xaxt = "none",las = 2 )
-      axis(side = 1,seq(0,50000,by = 10000),tick = T)
-      grid(nx = NULL, ny = NULL,
-           lty = 1,      # Grid line type
-           col = "gray", # Grid line color
-           lwd = 0.5)      # Grid line width
+    p.J.RSS.cat.sup = ggplot(data=temp.agg, aes(x=L, y=Umi.count/sum(Umi.count),fill = factor(RSS.J))) +
+      geom_bar(stat="identity", width=1,colour = "black") +
+      scale_fill_manual(values=(c(J1.col,J2.col,J3.col,J4.col,J5.col)))+
+      scale_x_continuous(name="CDR3 length (nucleotides)",breaks = seq(27,52, by = 3)) + 
       
-      lines(pgeom(300000,sort(rules.VJ.prop,decreasing = T)),col = 'black')
-      lines(pgeom(200000,sort(rules.VJ.prop,decreasing = T)),col = 'red')
-      dev.off()
-    }
+      labs (y = "Fraction of the repertoire" , legend = "J RSS position") +
+      theme_minimal()  
+    ggsave(paste0(spp.fig.folder,"xtDFig_4_g.pdf"),p.J.RSS.cat.sup,width = 6,height = 4,bg = "white")
+    
+  }
+
   
-### Fig S9 ###
+### Extended data Figure 5 ###
+  
     {
 
-    p1s9=VDJ.plot.2(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,V.gene == "TRAV11_6_01" & J.start < L),],VJ.col = "black",alfa = 0.65) + ggtitle("TRAV11_6_01")
-    p2s9=VDJ.plot.2(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,V.gene == "TRAV52_1_01" & J.start < L),],VJ.col = "black",alfa = 0.65) + ggtitle("TRAV52_1_01")
-    p3s9=VDJ.plot.2(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,J.gene == "TRAJ5_01" & J.start < L),],VJ.col = "black",alfa = 0.65) + ggtitle("TRAJ5_01")
-    ggsave(paste0(spp.fig.folder,"Fig_S9_TRAV11_6_01.pdf"),p1s9,width = 10,height = 8)
-    ggsave(paste0(spp.fig.folder,"Fig_S9_TRAV52_1_01.pdf"),p2s9,width = 10,height = 8)
-    ggsave(paste0(spp.fig.folder,"Fig_S9_TRAJ5_011.pdf"),p3s9,width = 10,height = 8)
+    p1s5=VDJ.plot.2(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,V.gene == "TRAV11_6_01" & J.start < L),],VJ.col = "black",alfa = 0.65) + ggtitle("TRAV11_6_01")
+    p2s5=VDJ.plot.2(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,V.gene == "TRAV52_1_01" & J.start < L),],VJ.col = "black",alfa = 0.65) + ggtitle("TRAV52_1_01")
+    p3s5=VDJ.plot.2(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,J.gene == "TRAJ5_01" & J.start < L),],VJ.col = "black",alfa = 0.65) + ggtitle("TRAJ5_01")
+    ggsave(paste0(spp.fig.folder,"xtDFig_5_f.pdf"),p1s5,width = 10,height = 8)
+    ggsave(paste0(spp.fig.folder,"xtDFig_5_g.pdf"),p2s5,width = 10,height = 8)
+    ggsave(paste0(spp.fig.folder,"xtDFig_5_h.pdf"),p3s5,width = 10,height = 8)
     }
     {
-    pdf(paste0(spp.fig.folder,"Fig_S9_barplots.pdf"),width = 5,height = 10)
+    pdf(paste0(spp.fig.folder,"xtDFig_5_i_j_k.pdf"),width = 5,height = 10)
     par(mfrow = c(3,1))
-    bp.names = 25:55
-    bp.names[bp.names%%3 !=0] = NA
-    barplot(prop.table(table(factor(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,J.gene == "TRAJ5_01"),]$L,levels = 25:55))),col = c(out.of.frame.col,out.of.frame.col,in.frame.col),names = bp.names, ylim = c(0,0.3), axes = F,main = "TRAJ5_01")
-    axis(2,labels = as.character(c("0","0.10","0.20","0.30")),at = c(0,0.10,0.20,0.30),las = 1)
     
     bp.names = 25:55
     bp.names[bp.names%%3 !=0] = NA
     barplot(prop.table(table(factor(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,V.gene == "TRAV11_6_01"),]$L,levels = 25:55))),col = c(out.of.frame.col,out.of.frame.col,in.frame.col),names = bp.names, ylim = c(0,0.3), axes = F,main = "TRAV11_6_01")
     axis(2,labels = as.character(c("0","0.10","0.20","0.30")),at = c(0,0.10,0.20,0.30),las = 1)
-    
-    bp.names = 25:55
-    bp.names[bp.names%%3 !=0] = NA
+
     barplot(prop.table(table(factor(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,V.gene == "TRAV52_1_01"),]$L,levels = 25:55))),col = c(out.of.frame.col,out.of.frame.col,in.frame.col),names = bp.names, ylim = c(0,0.3), axes = F,main = "TRAV52_1_01")
+    axis(2,labels = as.character(c("0","0.10","0.20","0.30")),at = c(0,0.10,0.20,0.30),las = 1)
+
+    barplot(prop.table(table(factor(TCR.a.spp.VJ$ZF[with(TCR.a.spp.VJ$ZF,J.gene == "TRAJ5_01"),]$L,levels = 25:55))),col = c(out.of.frame.col,out.of.frame.col,in.frame.col),names = bp.names, ylim = c(0,0.3), axes = F,main = "TRAJ5_01")
     axis(2,labels = as.character(c("0","0.10","0.20","0.30")),at = c(0,0.10,0.20,0.30),las = 1)
     
     dev.off()    
     }
     
-### Fig S10 ###
-    
+
     {  
-      # In frame Vs
-      
+
       df.V.frame.df.2 = df.V.frame.df
       df.V.frame.df.2$Vs[!df.V.frame.df.2$Vs%in% c("TRAV11_6_01","TRAV52_1_01")] = ""
       
@@ -290,7 +267,7 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
         labs(x = "V RSS position", y = "Fraction of in-frame rearrangements by V element" ) +
         scale_fill_manual(values=(c(J1.col,J2.col,J3.col,J3.col,J4.col,J5.col))) 
       
-      ggsave(paste0(spp.fig.folder,"Fig_S10_Vs_in_frame.pdf"),p.if.Vs,width = 8,height = 6)
+      ggsave(paste0(spp.fig.folder,"xtDFig_5_l.pdf"),p.if.Vs,width = 8,height = 6)
       # In frame Js
       
       df.J.frame.df.2 = df.J.frame.df
@@ -308,33 +285,15 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
         scale_fill_manual(values=(c(J1.col,J2.col,J3.col,"black","black",J4.col,J5.col))) +
         theme(legend.position = 'none')
       
-      ggsave(paste0(spp.fig.folder,"Fig_S10_Js_in_frame.pdf"),p.if.Js,width = 8,height = 6)
+      ggsave(paste0(spp.fig.folder,"xtDFig_5_m.pdf"),p.if.Js,width = 8,height = 6)
     }
     
     
-    ### Fig S11 ###
-    
-    {  
-      # Connor fish barplots
+### Extended data Figure 6 ###
+  
+    { 
       target_seq_14 = "TGTGCTCTGAGGCC"
       target_seq_15 = "TGTGCT..TGAGGCC"
-     
-      mut.L.table = table(factor(ZF.23.25.dla.a$L[grepl(target_seq_15,ZF.23.25.dla.a$CDR3.nucleotide.sequence)],levels = 30:55))
-      control.L.table = table(factor(ZF.23.25.dla.a$L[grepl(target_seq_14,ZF.23.25.dla.a$CDR3.nucleotide.sequence)],levels = 30:55))
-      
-      pdf(paste0(spp.fig.folder,"Fig_S11.CF.barplots.wt.pdf"),width = 5,height = 5)
-      barplot(prop.table(control.L.table),col = c(in.frame.col,"grey","grey"),yaxt = "n")
-      axis(2,seq(0,0.25,by =0.05),las = 2)
-      dev.off()
-      pdf(paste0(spp.fig.folder,"Fig_S11.CF.barplots.mut.pdf"),width = 5,height = 5)
-      barplot(prop.table(mut.L.table),col = c(in.frame.col,"grey","grey"),yaxt = "n")
-      axis(2,seq(0,25,by =0.05),las = 2)
-      dev.off()
-      
-      pdf(paste0(spp.fig.folder,"Fig_S11.CF.barplot.if.pdf"),width = 2.6,height = 5)
-      
-      barplot(matrix(c(prop.table(rev(table(ZF.23.25.dla.a$L[grepl(target_seq_14,ZF.23.25.dla.a$CDR3.nucleotide.sequence)]%%3==0))),prop.table(rev(table(ZF.23.25.dla.a$L[grepl(target_seq_15,ZF.23.25.dla.a$CDR3.nucleotide.sequence)]%%3==0)))),ncol = 2),col = c(in.frame.col,"grey"),las = 2)
-      dev.off()
       # Connor fish consensus
       
       p.CF.14 = ggseqlogo(subseq(ZF.23.25.dla.a[grepl(target_seq_14,ZF.23.25.dla.a$CDR3.nucleotide.sequence),]$CDR3.nucleotide.sequence,1,14),col_scheme = cs.black) +
@@ -343,11 +302,31 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
       p.CF.15 = ggseqlogo(subseq(ZF.23.25.dla.a[grepl(target_seq_15,ZF.23.25.dla.a$CDR3.nucleotide.sequence),]$CDR3.nucleotide.sequence,1,15),col_scheme = cs.black) +
         theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.title.y=element_blank(), axis.text.y=element_blank())
       
-      ggsave(filename = paste0(spp.fig.folder,"Fig_S11.CF.14.pdf"),p.CF.14,width = 16,height = 2)  
-      ggsave(filename = paste0(spp.fig.folder,"Fig_S11.CF.15.pdf"),p.CF.15,width = 16,height = 2)  
+      ggsave(filename = paste0(spp.fig.folder,"xtDFig_6_a.pdf"),p.CF.14,width = 16,height = 2)  
+      ggsave(filename = paste0(spp.fig.folder,"xtDFig_6_c.pdf"),p.CF.15,width = 16,height = 2)  
+      
+      # Connor fish barplots
+      mut.L.table = table(factor(ZF.23.25.dla.a$L[grepl(target_seq_15,ZF.23.25.dla.a$CDR3.nucleotide.sequence)],levels = 30:55))
+      control.L.table = table(factor(ZF.23.25.dla.a$L[grepl(target_seq_14,ZF.23.25.dla.a$CDR3.nucleotide.sequence)],levels = 30:55))
+      
+      pdf(paste0(spp.fig.folder,"xtDFig_6_b.pdf"),width = 5,height = 5)
+      barplot(prop.table(control.L.table),col = c(in.frame.col,"grey","grey"),yaxt = "n")
+      axis(2,seq(0,0.25,by =0.05),las = 2)
+      dev.off()
+      pdf(paste0(spp.fig.folder,"xtDFig_6_d.pdf"),width = 5,height = 5)
+      barplot(prop.table(mut.L.table),col = c(in.frame.col,"grey","grey"),yaxt = "n")
+      axis(2,seq(0,25,by =0.05),las = 2)
+      dev.off()
+      
+      pdf(paste0(spp.fig.folder,"xtDFig_6_e.pdf"),width = 2.6,height = 5)
+      
+      barplot(matrix(c(prop.table(rev(table(ZF.23.25.dla.a$L[grepl(target_seq_14,ZF.23.25.dla.a$CDR3.nucleotide.sequence)]%%3==0))),prop.table(rev(table(ZF.23.25.dla.a$L[grepl(target_seq_15,ZF.23.25.dla.a$CDR3.nucleotide.sequence)]%%3==0)))),ncol = 2),col = c(in.frame.col,"grey"),las = 2)
+      dev.off()
+ 
     }
     
-    
+### Extended data Figure 7 ###
+  
     {  
       
       # VDJ plot with rules VJ new color
@@ -444,18 +423,18 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
       p.spp.1 = grid.arrange(grobs = rules.plot.list[1:6],ncol = 3)
       p.spp.2 = grid.arrange(grobs = rules.plot.list[7:11],ncol = 3)
       
-      ggsave(filename = paste0(spp.fig.folder,"Fig_S12.pdf"),p.spp,width = 18,height = 25)
+      ggsave(filename = paste0(spp.fig.folder,"xtDFig_7.pdf"),p.spp,width = 18,height = 25)
       
       
     }
 
     
-### Fig S13 ###
-    
+### Extended data Figure 8 ###
+  
     
 { 
     {
-      pdf(file = paste0(spp.fig.folder,"Fig_S13.A.pdf"),width = 8,height = 18)
+      pdf(file = paste0(spp.fig.folder,"xtDFig_8_a.pdf"),width = 8,height = 18)
       par(mfrow = c(11,1),mar = c(2,0,2,0))
       for(i in c(6,10,7,8,1,2,3,9,11,4,5)){do.call('entropy.output.VorJ',list( h.spp.a[[i]]$nt[[42]],plot = 4))
         for(l in seq(0,2,by = 0.5))abline(l,0,lty = 1,lwd = 0.3, col = "black")  
@@ -464,12 +443,11 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
       dev.off()  
       
       spp.repertoire.df.figS = spp.repertoire.a.df
-      
       spp.repertoire.df.figS$sp = factor(c("PP","DR","OM","MM","LA","CP","AR.1","AR.2","OL","PS","PA")[c(6,10,7,8,1,2,3,9,11,4,5)], levels = c("PP","DR","OM","MM","LA","CP","AR.1","AR.2","OL","PS","PA")[c(6,10,7,8,1,2,3,9,11,4,5)])
       spp.repertoire.df.figS$class = factor(spp.repertoire.df.figS$class ,levels = unique(spp.repertoire.df.figS$class))
       levels(spp.repertoire.df.figS$class)[levels(spp.repertoire.df.figS$class) == "transition"] = "lobe-finned fishes"
       
-      p.S13.ins =ggplot(spp.repertoire.df.figS) + 
+      p.S8.ins =ggplot(spp.repertoire.df.figS) + 
         geom_col(mapping = aes(x = sp, y = as.numeric(No.insertions),fill = class)) + 
         scale_fill_manual(values=c('darkseagreen 2','cadetblue2',"royal blue",'dark orchid',"red"),name = "group") +
         labs(y = "Fraction of the repertoire without non-template nucleotides", x = element_blank()) +
@@ -479,9 +457,9 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
               legend.title = element_text(size = 12),
               legend.text = element_text(size = 12))
       
-      ggsave(file = paste0(spp.fig.folder,"Fig_S13.B.pdf"),p.S13.ins,width = 8,height = 5)
+      ggsave(file = paste0(spp.fig.folder,"xtDFig_8_b.pdf"),p.S8.ins,width = 8,height = 5)
       
-      p.S13.H = ggplot(spp.repertoire.df.figS) + 
+      p.S8.H = ggplot(spp.repertoire.df.figS) + 
         geom_col(mapping = aes(x = sp, y = as.numeric(H.N),fill = class)) + 
         #scale_color_manual(values=c('cadetblue2',"red",'darkseagreen 2',"royal blue",'dark orchid')) +
         scale_fill_manual(values=c('darkseagreen 2','cadetblue2',"royal blue",'dark orchid',"red"),name = "group") +
@@ -492,7 +470,7 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
               legend.text = element_text(size = 12))
       
       
-      ggsave(file = paste0(spp.fig.folder,"Fig_S13.C.pdf"),p.S13.H,width = 8,height = 5)
+      ggsave(file = paste0(spp.fig.folder,"xtDFig_8_c.pdf"),p.S8.H,width = 8,height = 5)
       
     } 
     
@@ -518,30 +496,79 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
     
     No.TdT.tb.3 = cbind(No.TdT.tb.2[,1:2],rowSums(No.TdT.tb.2[,3:7]))
     colnames(No.TdT.tb.3)[3] = "P nt"
-    pdf(file = paste0(spp.fig.folder,"Fig_S13.D.pdf"),width = 18,height = 10)
+    pdf(file = paste0(spp.fig.folder,"xtDFig_8_d.pdf"),width = 18,height = 10)
     barplot(t(cbind(No.TdT.tb.3,1-rowSums(No.TdT.tb.3))),col = c(1,7,3,'white'))
     dev.off()    
 }    
     
-### Fig S14 ###
     
+    Va.pat.conservation = sort(sapply(names(spp.genome.data.list)[c(1,2,4:10)],function(sp)mean(regexpr("TG.....TG..GCC",getSeq(spp.genome.data.list[[sp]]$a,flank(spp.TCR.dict[[sp]]$a$V.GR.dict-3,start = F,width = 30)))==1)))
+    Va.pat.conservation = c(Va.pat.conservation,sort(sapply(names(spp.genome.data.list)[c(3)],function(sp)mean(regexpr("TG.....TG..GCC",getSeq(spp.genome.data.list[[sp]]$a.1,flank(spp.TCR.dict[[sp]]$a.1$V.GR.dict-3,start = F,width = 30)))==1))))
+    Va.pat.conservation = c(Va.pat.conservation,sort(sapply(names(spp.genome.data.list)[c(3)],function(sp)mean(regexpr("TG.....TG..GCC",getSeq(spp.genome.data.list[[sp]]$a.2,flank(spp.TCR.dict[[sp]]$a.2$V.GR.dict-3,start = F,width = 30)))==1))))
+    
+    names(Va.pat.conservation)[10] = "ST.1"
+    names(Va.pat.conservation)[11] = "ST.2"
+    
+    Va.pat.conservation = Va.pat.conservation[c("BS","GB","ST.1","ST.2","MF","ZF","RT","MK","LF","MM","LA")]
+    
+    Va.pat.conservation.df = data.frame(species = spp.short.names, conservation = Va.pat.conservation)
+    Va.pat.conservation.df$species = factor(Va.pat.conservation.df$sp,levels= unique(Va.pat.conservation.df$species))
+    Va.pat.conservation.df$group = c("sharks",rep("basal fishes",3),rep("teleosts",4),"lobe-finned fishes",rep("mammals",2))
+    Va.pat.conservation.df$group = factor(Va.pat.conservation.df$group ,levels = unique(Va.pat.conservation.df$group ))
+    
+    pdf(file =  paste0(spp.fig.folder,"xtDFig_8_e.pdf"),width = 5,height = 5)
+    
+    ggplot(Va.pat.conservation.df) + 
+      geom_col(mapping = aes(x=species , y =conservation,fill = group)) + 
+      scale_fill_manual(values = spp.col) +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+    dev.off()
+    
+    
+  
+  
+  
+  
+  Ja.pat.conservation = sort(sapply(names(spp.genome.data.list)[c(1,2,4:10)],function(sp)mean(regexpr("TGA[AC]T",subseq(getSeq(spp.genome.data.list[[sp]]$a,spp.TCR.dict[[sp]]$a$J.GR.dict),spp.TCR.dict[[sp]]$a$J.GR.dict$heptamer.end))==2)))
+  Ja.pat.conservation = c(Ja.pat.conservation,sort(sapply(names(spp.genome.data.list)[c(3)],function(sp)mean(regexpr("TGA[AC]T",subseq(getSeq(spp.genome.data.list[[sp]]$a.1,spp.TCR.dict[[sp]]$a.1$J.GR.dict),spp.TCR.dict[[sp]]$a.1$J.GR.dict$heptamer.end))==2))))
+  Ja.pat.conservation = c(Ja.pat.conservation,sort(sapply(names(spp.genome.data.list)[c(3)],function(sp)mean(regexpr("TGA[AC]T",subseq(getSeq(spp.genome.data.list[[sp]]$a.2,spp.TCR.dict[[sp]]$a.2$J.GR.dict),spp.TCR.dict[[sp]]$a.2$J.GR.dict$heptamer.end))==2))))
+  names(Ja.pat.conservation)[10] = "ST.1"
+  names(Ja.pat.conservation)[11] = "ST.2"
+  
+  Ja.pat.conservation = Ja.pat.conservation[c("BS","GB","ST.1","ST.2","MF","ZF","RT","MK","LF","MM","LA")]
+  
+  Ja.pat.conservation.df = data.frame(sp = spp.short.names, conservation = Ja.pat.conservation)
+  Ja.pat.conservation.df$sp = factor(Ja.pat.conservation.df$sp,levels= unique(Ja.pat.conservation.df$sp))
+  Ja.pat.conservation.df$group = c("sharks",rep("basal fishes",3),rep("teleosts",4),"lobe-finned fishes",rep("mammals",2))
+  Ja.pat.conservation.df$group = factor(Ja.pat.conservation.df$group ,levels = unique(Ja.pat.conservation.df$group ))
+  pdf(file = paste0(spp.fig.folder,"xtDFig_8_f.pdf"),width = 5,height = 5)
+  
+  ggplot(Ja.pat.conservation.df) + 
+    geom_col(mapping = aes(x=sp , y =conservation,fill = group)) + 
+    scale_fill_manual(values = spp.col) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  dev.off()
+  
+### Extended data Figure 9 ###
+  
     {
       p.J.n_vs_range = ggplot(spp.df[!is.na(spp.df$J_frame),]) + geom_point(mapping = aes(y = J_range,x=J_nr,color = group),size = 0.8) +
         scale_color_manual(values=spp.col.xt) +
         theme_classic() + 
         labs (y= "Range between first and last found J genes (nt)", x = "Number of J elements") +
         scale_y_continuous(limits = c(0,150000))
-      ggsave(paste0(spp.fig.folder,"Fig_S14.pdf"),p.J.n_vs_range,width = 6,height = 4)
+      ggsave(paste0(spp.fig.folder,"xtDFig_9_a.pdf"),p.J.n_vs_range,width = 6,height = 4)
     }
 
-### Fig S15 ###
-    
+  
     
     p.J.ZF_vs_J.MM = ggplot(spp.df) + 
       geom_point(mapping = aes(x = J_frame, y = J_frame.MM)) +
       theme_classic() +
       labs (x = "Initial consensus query D. rerio", y = "Initial consensus query M. musculus")
-    ggsave(paste0(spp.fig.folder,"Fig_S15.A.pdf"),p.J.ZF_vs_J.MM,width = 8,height = 8)
+    ggsave(paste0(spp.fig.folder,"xtDFig_9_b.pdf"),p.J.ZF_vs_J.MM,width = 8,height = 8)
     
     {
       p.J.ec_vs_frame = ggplot(spp.df) + 
@@ -552,13 +579,13 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
 
         theme_classic()
     }
-    ggsave(paste0(spp.fig.folder,"Fig_S15.B.pdf"),p.J.ec_vs_frame,width = 10,height = 8)
+    ggsave(paste0(spp.fig.folder,"xtDFig_9_c.pdf"),p.J.ec_vs_frame,width = 10,height = 8)
     
     
 ### Fig S16 ###
     
     spp.short.names = c("C. punctatum","P. senegalus","A. ruthenus Ca 1","A. ruthenus Ca 2","P. progenetica","D. rerio","O. mykiss","O. latipes","P. annectens","M. musculus","L. africana")
-    pdf(paste0(spp.fig.folder,"Fig_S16.ref.colors.pdf"),width = 10,height = 5)
+    pdf(paste0(spp.fig.folder,"xtDFig_10.ref.colors.pdf"),width = 10,height = 5)
     barplot(rep(1,20), col = c(rainbow(47)[c(9:13)],rainbow(20)[c(7:20,1)]),space = 0,names.arg = paste((1:20)*5,"%"))
     dev.off()
     pruned.colors = c(rainbow(47)[c(9:13)],rainbow(20)[c(7:20,1)])[round(as.numeric(spp.df$J_frame)*20)[match(pruned.tree.tip.translate,spp.df$spp)]]
@@ -567,7 +594,28 @@ pdf(file =  paste0(spp.fig.folder,"Fig_S5_consensus.pdf"),width = 8,height = 4)
     pruned_tree.2 = pruned_tree
     pruned_tree.2$tip.label = pruned.tree.tip.translate.2
   
-    pdf(paste0(spp.fig.folder,"Fig_S16.pdf"),width = 9,height = 9)
+    pdf(paste0(spp.fig.folder,"xtDFig_10.pdf"),width = 9,height = 9)
     par(mfrow = c(1,1))
     plot(pruned_tree, type = 'fan',cex = 0.5, label.offset = .01, no.margin = TRUE, tip.color = pruned.colors, edge.color = col.pt)
     dev.off()
+    
+    
+    
+  ### Supplementary figure ###
+    rules.prop = prop.table(table(with(TCR.a.spp.VJ[[sp]],rep(rules,Umi.count))))[2:5]
+    rules.VJ = lapply(1:4,function(rule)with(TCR.a.spp.VJ[[sp]][TCR.a.spp.VJ[[sp]]$rules==rule,],sapply(as.numeric(prop.table(table(rep(V.gene,Umi.count)))),function(x)sapply(as.numeric(prop.table(table(rep(J.gene,Umi.count)))),function(y)x*y))))
+    rules.VJ.prop = unlist(mapply('*',rules.VJ,rules.prop))
+    
+    {
+      pdf(file = paste0(spp.fig.folder,"ZF.generation.prob.pdf"),width = 5,height = 5)
+      plot(pgeom(300000,sort(rules.VJ.prop,decreasing = T)),type = 'l',ylab = "Probability of generation",xlab = "Rank",xaxt = "none",las = 2 )
+      axis(side = 1,seq(0,50000,by = 10000),tick = T)
+      grid(nx = NULL, ny = NULL,
+           lty = 1,      # Grid line type
+           col = "gray", # Grid line color
+           lwd = 0.5)      # Grid line width
+      
+      lines(pgeom(300000,sort(rules.VJ.prop,decreasing = T)),col = 'black')
+      lines(pgeom(200000,sort(rules.VJ.prop,decreasing = T)),col = 'red')
+      dev.off()
+    }
