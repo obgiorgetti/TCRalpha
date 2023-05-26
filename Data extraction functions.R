@@ -1,45 +1,4 @@
-library(tidyverse)
-library(Biostrings)
-library(ShortRead)
-library(igraph)
-library(parallel)
-library(BSgenome)
-library(plyr)
-
-
-#spp.folder = "/data/boehm/group/giorgetti/Species_project/"
-for(x in list.files(paste0(spp.data.folder,"RepSeq_databases"))) load(file = paste0(paste0(spp.data.folder,"RepSeq_databases/"),x))
-for(x in list.files(paste0(spp.data.folder,"RepSeq_dataframes"))) load(file = paste0(paste0(spp.data.folder,"RepSeq_dataframes/"),x))
-
-{
-  path.all.files.1="//data/boehm/sequencing_data"
-  all.dirs.1 = list.dirs(path = path.all.files.1, full.names = TRUE, recursive = TRUE)
-  my.dirs.1 = all.dirs.1[grepl("Giorgetti",all.dirs.1)&!(grepl("Sample|FASTQC|Analysis",all.dirs.1))]
-  
-  path.all.files.2="//data/boehm/sequencing_data2"
-  all.dirs.2 = list.dirs(path = path.all.files.2, full.names = TRUE, recursive = TRUE)
-  my.dirs.2 = all.dirs.2[grepl("Giorgetti",all.dirs.2)&!(grepl("Sample|FASTQC|Analysis",all.dirs.2))]
-  
-  my_dirs = c(my.dirs.1,my.dirs.2)
-}
-
-file.organizer = function(lista.de.indices,patron = ".",dirs = my_dirs,optical_duplicates = F){
-  resultados = list()
-  my_path.list = list()
-  my_files.list = list()
-  for(i in 1:length(lista.de.indices)){
-    my_path.list[[i]] = sub("/Project.*","/",dirs)[lista.de.indices[i]]
-    my_files.list[[i]] =list.files(path= my_path.list[[i]] ,pattern=".fastq.gz",recursive = TRUE)
-  }
-  my_files.list = lapply(my_files.list,function(y)y[grepl(patron,y)])
-  if(optical_duplicates == F){
-    archivos = lapply(1:length(lista.de.indices),function(j)sub(".fastq.gz","",sub(".*/","",my_files.list[[j]][!grepl("optical",my_files.list[[j]])])))
-    carpetas = lapply(1:length(lista.de.indices),function(j)paste0(my_path.list[[j]],my_files.list[[j]][!grepl("optical",my_files.list[[j]])]))}
-  if(optical_duplicates == T){
-    archivos = lapply(1:length(lista.de.indices),function(j)sub(".fastq.gz","",sub(".*/","",my_files.list[[j]][grepl("optical",my_files.list[[j]])])))
-    carpetas = lapply(1:length(lista.de.indices),function(j)paste0(my_path.list[[j]],my_files.list[[j]][grepl("optical",my_files.list[[j]])]))}
-  
-  return(list(archivos=archivos,carpetas=carpetas,nombre = archivos[[1]][c(T,F)]))}
+# Wrapper functions used in downstream analysis
 
 fastq.loader =function(archivos,carpetas,s){
   s.Fastq.list = list()
