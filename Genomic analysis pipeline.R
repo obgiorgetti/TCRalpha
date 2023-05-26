@@ -1,3 +1,5 @@
+# This code was used to extract the J sequences, it will not be run in the pipeline described in the readme file, since output was included in Databases.
+# To reproduce this code, the complete list of C alpha loci described in Supplementary table 4 are needed.
 
 source(paste0(spp.maps.folder,'C alpha database.R'))
 
