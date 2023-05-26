@@ -188,5 +188,6 @@ entropy.content = function(csmat){
   return (colSums(entropy))
 }
 
+                       
 for(x in list.files(paste0(spp.data.folder,"IT"))) load(file = paste0(paste0(spp.data.folder,"IT/"),x))
 
