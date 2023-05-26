@@ -1,4 +1,5 @@
 
+
 tr.DNA = function(st)translate(DNAStringSet(subseq(as.character(st),1,width=floor(nchar(as.character(st))/3)*3-3)),if.fuzzy.codon = "solve", no.init.codon = TRUE)
 
 tr.DNA3 = function(st)sapply(1:3,function(x)translate(DNAStringSet(subseq(st,x,width=floor(nchar(st)/3)*3-3)),if.fuzzy.codon = "solve", no.init.codon = TRUE))
