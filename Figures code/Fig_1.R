@@ -46,7 +46,6 @@ VDJ.plot.2(TCR.a.spp.VJ$MM[with(TCR.a.spp.VJ$MM, J.start<=70 & J.start < L),],es
   dev.off()
 }
 
-
 # Fig E
 
 {
