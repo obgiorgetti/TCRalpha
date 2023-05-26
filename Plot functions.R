@@ -1,8 +1,3 @@
-library(ggplot2)
-library(ggseqlogo)
-library(gridExtra)
-library(ggrepel)
-library(msa)
 
 V.col = 'royalblue'
 J.col = 'red'
