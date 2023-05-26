@@ -18,7 +18,6 @@
 taxa <- tnrs_match_names(names = unique(as.character(sapply(spp.classification,function(x)x[x$rank=='species',1]))))
 taxon_map <- structure(taxa$search_string, names = taxa$unique_name)
 tree <- tol_induced_subtree(ott_id(taxa)[is_in_tree(ott_id(taxa))])
-#taxa.red <- tnrs_match_names(names = as.character(sapply(spp.classification,function(x)x[x$rank=='species',1])[grep("bichir|Acipen|tted gar|Zebrafi|Brownbanded bamb|Minifi|Medaka|Rat|cobra|Chicken|West af|Rainbow trout",names(spp.classification),value = F)]))
 taxa.red <- tnrs_match_names(names = as.character(sapply(spp.classification,function(x)x[x$rank=='species',1])[grep("bichir|Zebrafi|Brownbanded bamb|Rat|cobra|Chicken|West af|Leishan spiny toad",names(spp.classification),value = F)]))
 taxon_map.red <- structure(taxa.red$search_string, names = taxa.red$unique_name)
 tree.red <- tol_induced_subtree(ott_id(taxa.red)[is_in_tree(ott_id(taxa.red))])
