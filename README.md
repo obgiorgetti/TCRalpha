@@ -14,7 +14,8 @@ If you require additional help, contact OBG at orlandogiorgetti@gmail.com.
 
 #############################################################
 
-========
+
+
 Raw data
 ========
 
@@ -22,7 +23,7 @@ In all cases raw data consists of Illumina sequencing of TCRa and TCRb cDNA ampl
 The raw data can be found in PRJNA612865 (Minifish), PRJNA865512 (all other wild species) and PRJNA865921 (Crispr mutant animals).
 For using the tables we generated for the analysis done in the paper see below.
 
-================================  
+
 Tables with extracted UMI counts
 ================================
 
@@ -30,7 +31,7 @@ These tables, along with the genomes, and the genes used for the extraction are 
 Unzipping the file in the folder containing this file should create a folder named "Databases" in it. Databases should contain 8 files and 2 folders.
 The files TCR.a.spp and TCR.b.spp can be navigated in R after running the pipeline, and contain the extracted table for the repertoire sequencing of 10 species.
 
-================
+
 Running the code
 ================
 
@@ -41,7 +42,7 @@ Running the code
 It takes around 2,5 to 3 minutes on a Mac Mini 2023 to run the code.
 
 
-=============================================================================
+
 Exploring the tables and extracting data from the genomes for repertoire data
 =============================================================================
 
@@ -88,7 +89,6 @@ Note we only used this formula for TCR alpha in this paper.
   do.call('entropy.output.VorJ',list(h.ZFa$nt[[42]],plot = 4))
   
 
-==================================================
 Analysis of germline elements in genome assemblies
 ==================================================
 
