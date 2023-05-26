@@ -3,7 +3,6 @@
 
 source(paste0(spp.maps.folder,'C alpha database.R'))
 
-
 Alpha.files = list.files(path= spp.maps.folder ,pattern="alpha",recursive = TRUE)
 Alpha.files.ss = gsub("_"," ",gsub(".[0-9]|.*/|.alpha.*|_H[DNS].*","",Alpha.files)) # file names to match with Calphas
 spp.classification = spp.classification[names(spp.classification) %in% Alpha.files.ss]
