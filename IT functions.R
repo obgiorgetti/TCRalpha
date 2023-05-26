@@ -1,4 +1,4 @@
-
+# Functions to generate TCR entropy estimates
 
 TCR.entropy.VorJ = function(database,L.min = 18,L.max=72, threshold = 100){
   {
