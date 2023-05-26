@@ -91,6 +91,7 @@ ggsave(paste0(spp.fig.folder,"Fig2.B.pdf"),p.Fig2b,width = 10,height = 10)
   df$D3.end[df$Total.insertions < 0] = df$J.start[df$Total.insertions < 0] - df$Total.insertions[df$Total.insertions < 0] - 1
   df$V.end[df$Total.insertions < 0] = df$V.end[df$Total.insertions < 0] + df$Total.insertions[df$Total.insertions < 0]
   df$J.start[df$Total.insertions < 0] = df$J.start[df$Total.insertions < 0] - df$Total.insertions[df$Total.insertions < 0]
+  df = df[!df$J.length<=18,] 
   rules.col = c('white','sienna4','magenta','dark green','darkorange 1')
   J.RSS.col = c(J1.col,J2.col,J3.col,J4.col,J5.col)
   lim = 64
@@ -160,7 +161,9 @@ ggsave(paste0(spp.fig.folder,"Fig2.B.pdf"),p.Fig2b,width = 10,height = 10)
   }
   
 }
-ggsave(paste0(spp.fig.folder,"Fig2.C.pdf"),p.ZF.rules,width = 10,height = 10)
+p.ZF.rules
+ggsave(paste0(spp.fig.folder,"Fig2.C.ii.pdf"),p.ZF.rules,width = 10,height = 10)
+
 
 
 
