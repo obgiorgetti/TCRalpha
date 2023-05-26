@@ -186,8 +186,4 @@ entropy.content = function(csmat){
   entropy = (-proportions*log2(proportions))
   entropy[is.na(entropy)]=0
   return (colSums(entropy))
-}
-
-                       
-for(x in list.files(paste0(spp.data.folder,"IT"))) load(file = paste0(paste0(spp.data.folder,"IT/"),x))
-
+}                   
