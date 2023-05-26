@@ -7,25 +7,38 @@ rules.generation = function(TCR.a.df,sp,gene = "a"){
   names(J.cuts)= names(J.seqs)
   
   
+  
   rule.1.Vs = subseq(V.seqs[subseq(V.seqs,8,9)=="TG"],1,9)
+  if(!is.null(spp.TCR.dict[[sp]][[gene]]$V.alleles)){
+    rule.1.Vs = c(rule.1.Vs,DNAStringSet(subseq(spp.TCR.dict[[sp]][[gene]]$V.alleles,1,9)))
+  }
   rule.1.Js = subseq(J.seqs,J.cuts+3,-34)[subseq(J.seqs,J.cuts+1,width = 2)=="TG"]
   rule.1 = unname(unlist(lapply(rule.1.Vs,function(x)paste0(x,rule.1.Js))))
   rule.1.V = paste(rule.1,rep(names(rule.1.Vs),each = length(rule.1.Js)),sep = ';')
   rule.1.VJ = paste(rule.1.V,rep(names(rule.1.Js),length(rule.1.Vs)),sep = ';')
   
   rule.2.Vs = subseq(V.seqs[subseq(V.seqs,12,12)=="G"],1,12)
+  if(!is.null(spp.TCR.dict[[sp]][[gene]]$V.alleles)){
+    rule.2.Vs = c(rule.2.Vs,DNAStringSet(subseq(spp.TCR.dict[[sp]][[gene]]$V.alleles,1,12)))
+  }
   rule.2.Js = subseq(J.seqs,J.cuts+3,-34)[subseq(J.seqs,J.cuts+2,width = 1)=="G"]
   rule.2 = unname(unlist(lapply(rule.2.Vs,function(x)paste0(x,rule.2.Js))))
   rule.2.V = paste(rule.2,rep(names(rule.2.Vs),each = length(rule.2.Js)),sep = ';')
   rule.2.VJ = paste(rule.2.V,rep(names(rule.2.Js),length(rule.2.Vs)),sep = ';')
   
   rule.3.Vs = subseq(V.seqs[subseq(V.seqs,14,14)=="C"],1,14)
+  if(!is.null(spp.TCR.dict[[sp]][[gene]]$V.alleles)){
+    rule.3.Vs = c(rule.3.Vs,DNAStringSet(subseq(spp.TCR.dict[[sp]][[gene]]$V.alleles,1,14)))
+  }
   rule.3.Js = subseq(J.seqs,J.cuts+5,-34)[subseq(J.seqs,J.cuts+4,width = 1)=="C"]
   rule.3 = unname(unlist(lapply(rule.3.Vs,function(x)paste0(x,rule.3.Js))))
   rule.3.V = paste(rule.3,rep(names(rule.3.Vs),each = length(rule.3.Js)),sep = ';')
   rule.3.VJ = paste(rule.3.V,rep(names(rule.3.Js),length(rule.3.Vs)),sep = ';')
   
   rule.4.Vs = subseq(V.seqs[subseq(V.seqs,14,14)=="C"],1,14)
+  if(!is.null(spp.TCR.dict[[sp]][[gene]]$V.alleles)){
+    rule.4.Vs = c(rule.4.Vs,DNAStringSet(subseq(spp.TCR.dict[[sp]][[gene]]$V.alleles,1,14)))
+  }
   rule.4.Js = subseq(J.seqs,J.cuts+2,-34)[subseq(J.seqs,J.cuts+2,width = 1)=="G"]
   rule.4 = unname(unlist(lapply(rule.4.Vs,function(x)paste0(x,rule.4.Js))))
   rule.4.V = paste(rule.4,rep(names(rule.4.Vs),each = length(rule.4.Js)),sep = ';')
@@ -231,6 +244,8 @@ write.csv2(spp.repertoire.b.df,paste0(spp.tables.folder,"/spp.repertoire.b.df.cs
 }
 
 # Rules dataframes
+TCR.a.spp.rules = TCR.a.spp.VJ
+
 rules.explainable = sapply(names(TCR.a.spp.VJ),function(sp)mean(rep(TCR.a.spp.VJ[[sp]]$Total.insertions,TCR.a.spp.VJ[[sp]]$Umi.count)<=0))
 rules.spp = lapply(names(TCR.a.spp),function(sp)prop.table(tapply(TCR.a.spp.rules[[sp]][with(TCR.a.spp.rules[[sp]], !is.na(RSS.V) & !is.na(RSS.J)),]$Umi.count,(TCR.a.spp.rules[[sp]][with(TCR.a.spp.rules[[sp]], !is.na(RSS.V) & !is.na(RSS.J)),]$rules),sum)))
 for(i in 1:11) TCR.a.spp.rules[[i]]$rules[with(TCR.a.spp.rules[[i]],rules %in% 1:3 & Total.insertions==0)] = 0
